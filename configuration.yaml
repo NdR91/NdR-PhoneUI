@@ -1,0 +1,71 @@
+homeassistant:
+  # Customize
+  customize: !include customize.yaml
+  # ------------------------------------------------------------
+  # Packages
+  packages: !include_dir_named packages/
+  # ------------------------------------------------------------
+
+# Frontend
+frontend:
+  # Themes
+  themes: !include_dir_merge_named themes
+  # ------------------------------------------------------------
+#Add-on
+browser_mod:
+  prefix: "browser_mod_"
+  devices:
+    6d768013-8a8962ef:
+      name: ndr_ios
+      disable: 
+        - light
+        - media_player
+    bb990352-04325c43:
+      name: pc_studio
+      disable: 
+        - light
+        - media_player
+    e225fc73-e086f6b0:
+      name: nuc_firefox
+      disable: 
+        - light
+        - media_player
+  # ------------------------------------------------------------
+
+# Main Config
+config:
+media_source:
+system_health:
+api:
+map:
+mobile_app: 
+sun:  
+my:
+energy:
+zeroconf:
+# --------------------------------------------------------------
+
+# Recorder
+logger:
+  default: info
+  # ------------------------------------------------------------
+  # AUTOMATION DEBUG
+  # logs:
+  #   homeassistant.core: debug
+  #   homeassistant.components.automation: debug
+  # ------------------------------------------------------------
+
+# UI
+lovelace:
+  # MODE
+  mode: storage
+  # ------------------------------------------------------------
+  # Dashoards
+  dashboards:
+    # NdR Phone UI
+    ndr-phoneui:
+      mode: yaml
+      title: NdR Phone UI
+      icon: mdi:home-assistant
+      show_in_sidebar: true
+      filename: ndr_phoneui.yaml 
