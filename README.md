@@ -36,13 +36,17 @@ Questa Dashboard è ispirata al lavoro di [TBens](https://github.com/TBens): [lo
 
 # Esempi
 ## Localizzazione
+
 <img src="/www/screenshots/location.png" width="600" />
 
 ## Icona Batteria
+
 <img src="/www/screenshots/battery_icon.png" width="700" />
 
 ## Avviso entità non disponibile
+
 <img src="/www/screenshots/state_warning.png" width="700" />
 
 ## Stato Entità
+
 <img src="/www/screenshots/climate_state.png" width="700" />
