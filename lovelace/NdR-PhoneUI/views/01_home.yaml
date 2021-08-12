@@ -1,0 +1,322 @@
+### Vista HOME
+  - title: Home
+    path: home
+    icon: 'mdi:home-roof'
+    panel: false
+    type: custom:grid-layout
+    card_mod:
+      style: |
+        ha-card {
+            background-color: var(--primary-background-color);
+            border-radius: 15px;
+            margin: 10px;
+            box-shadow:
+              {% if is_state('sun.sun', 'above_horizon') %}
+                -4px -4px 8px rgba(255, 255, 255, .5), 5px 5px 8px rgba(0, 0, 0, .03);
+              {% elif is_state('sun.sun', 'below_horizon') %}
+                -5px -5px 8px rgba(50, 50, 50, .2), 5px 5px 8px rgba(0, 0, 0, .08);
+              {% endif %}
+        }
+    layout:
+      grid-template-columns: 100%
+      grid-template-rows: auto
+      grid-template-areas: |
+        "chips"
+        "general"
+        "person"
+        "clima"
+        "rooms"
+        "server"
+    badges: []
+    cards:
+  # ------------------------------------------------------------------------------------------------
+      - type: horizontal-stack
+        view_layout:
+          grid-area: chips
+        cards:
+          - template: chips_temperature
+            type: 'custom:button-card'
+            # ------------------------------------
+          - template: chips_counter_home
+            type: 'custom:button-card'
+            # ------------------------------------
+          - template: chips_alarm
+            type: 'custom:button-card'
+  # ------------------------------------------------------------------------------------------------
+      - type: vertical-stack
+        view_layout:
+          grid-area: general
+        cards:
+          - type: 'custom:button-card'
+            template: title
+            name: Generale
+            # ------------------------------------
+          - type: horizontal-stack 
+            cards:
+              - type: 'custom:button-card'
+                entity: sensor.assorbimento_totale_kw
+                template: 
+                  - icon_info_bg
+                  - power               
+                # ------------------------------------
+              - type: 'custom:button-card'
+                entity: group.sensori_movimento
+                template: 
+                  - icon_info_bg
+                  - movement   
+                # ------------------------------------
+              - type: 'custom:button-card'
+                entity: sensor.pc
+                icon: mdi:monitor-dashboard
+                name: PC Studio
+                template: 
+                  - icon_info_bg
+                  - pc
+                tap_action:
+                  action: call-service
+                  haptic: light
+                  service: switch.turn_on
+                  service_data:
+                    entity_id: switch.pc_studio  
+                # ------------------------------------              
+              - entity: sensor.cancello
+                template: 
+                  - icon_info_bg
+                  - gate
+                type: 'custom:button-card'
+  # ------------------------------------------------------------------------------------------------
+      - type: horizontal-stack
+        view_layout:
+          grid-area: person
+        cards:                        
+          - type: 'custom:button-card'
+            entity: person.andrea
+            template: 
+              - icon_info_bg
+              - person-andre
+            name: Andre       
+            # ------------------------------------                      
+          - type: 'custom:button-card'
+            entity: person.mary
+            template: 
+              - icon_info_bg
+              - person-mary
+            name: Mary
+  # ------------------------------------------------------------------------------------------------
+      - type: vertical-stack
+        view_layout:
+          grid-area: clima
+        cards:
+          - type: 'custom:button-card'
+            template: title
+            name: Clima
+            # ------------------------------------
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                entity: climate.daikin_sala
+                icon: mdi:television
+                name: Daikin Sala
+                styles:
+                  custom_fields:
+                    temp:
+                      - border-radius: 40%
+                      - position: absolute
+                      - left: 20px
+                      - top: 8px
+                      - height: 17px
+                      - width: 23px
+                      - border: 2px solid var(--card-background-color)
+                      - font-size: 11px
+                      - font-weight: bold
+                      - color: white
+                      - line-height: 17px
+                      - background-color: 'rgba(var(--color-green), 0.8)'
+                template: 
+                  - icon_info_bg_climate
+                  - climate
+                custom_fields: 
+                  temp: >
+                    [[[
+                        return Math.round(states['sensor.sala_temperature'].state)  + '°';
+                    ]]]
+                # ------------------------------------
+              - type: 'custom:button-card'
+                entity: climate.daikin_camera
+                icon: mdi:bed-king-outline
+                name: Daikin Camera
+                styles:
+                  custom_fields:
+                    temp:
+                      - border-radius: 40%
+                      - position: absolute
+                      - left: 20px
+                      - top: 8px
+                      - height: 17px
+                      - width: 23px
+                      - border: 2px solid var(--card-background-color)
+                      - font-size: 11px
+                      - font-weight: bold
+                      - color: white
+                      - line-height: 17px
+                      - background-color: 'rgba(var(--color-green), 0.8)'
+                template: 
+                  - icon_info_bg_climate
+                  - climate
+                custom_fields: 
+                  temp: >
+                    [[[
+                        return Math.round(states['sensor.camera_temperature'].state)  + '°';
+                    ]]]
+                # ------------------------------------
+              - type: 'custom:button-card'
+                entity: climate.daikin_studio
+                icon: mdi:google-controller
+                name: Daikin Studio
+                styles:
+                  custom_fields:
+                    temp:
+                      - border-radius: 40%
+                      - position: absolute
+                      - left: 20px
+                      - top: 8px
+                      - height: 17px
+                      - width: 23px
+                      - border: 2px solid var(--card-background-color)
+                      - font-size: 11px
+                      - font-weight: bold
+                      - color: white
+                      - line-height: 17px
+                      - background-color: 'rgba(var(--color-green), 0.8)'
+                template: 
+                  - icon_info_bg_climate
+                  - climate
+                custom_fields: 
+                  temp: >
+                    [[[
+                        return Math.round(states['sensor.studio_temperature'].state)  + '°';
+                    ]]]
+  # ------------------------------------------------------------------------------------------------
+      - type: vertical-stack
+        view_layout:
+          grid-area: rooms
+        cards:
+          - type: 'custom:button-card'
+            template: title
+            name: Stanze
+            # ------------------------------------
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                entity: group.luci_sala
+                name: Sala
+                tap_action:
+                  action: navigate
+                  navigation_path: /ndr-phoneui/living
+                template: 
+                  - icon_info_bg
+                  - light_group
+                label:  |
+                  [[[
+                    var text = 'Luci';
+                    if (states['sensor.conteggio_gruppo_luci_sala'].state == '0'){
+                      var text = 'Luci Spente';
+                    } else if(states['sensor.conteggio_gruppo_luci_sala'].state == '1'){
+                      var text = 'Una Luce Accesa';
+                    } else if(states['sensor.conteggio_gruppo_luci_sala'].state == '2'){
+                      var text = '2 Luci Accese';
+                    } else if(states['sensor.conteggio_gruppo_luci_sala'].state == '3'){
+                      var text = '3 Luci Accese';
+                    } else if(states['sensor.conteggio_gruppo_luci_sala'].state == '4'){
+                      var text = '4 Luci Accese';
+                    } else if(states['sensor.conteggio_gruppo_luci_sala'].state == '5'){
+                      var text = '5 Luci Accese';
+                    } else if(states['sensor.conteggio_gruppo_luci_sala'].state == '6'){
+                      var text = 'Tutto Acceso';
+                    }
+                    return text;
+                  ]]]     
+                # ------------------------------------          
+              - type: 'custom:button-card'
+                entity: group.luci_camera_bagno
+                name: Camera & Bagno
+                tap_action:
+                  action: navigate
+                  navigation_path: /ndr-phoneui/bed
+                template: 
+                  - icon_info_bg
+                  - light_group
+                label:  |
+                  [[[
+                    var text = 'Luci';
+                    if (states['sensor.conteggio_gruppo_luci_camera_bagno'].state == '0'){
+                      var text = 'Luci Spente';
+                    } else if(states['sensor.conteggio_gruppo_luci_camera_bagno'].state == '1'){
+                      var text = 'Una Luce Accesa';
+                    } else if(states['sensor.conteggio_gruppo_luci_camera_bagno'].state == '2'){
+                      var text = '2 Luci Accese';
+                    } else if(states['sensor.conteggio_gruppo_luci_camera_bagno'].state == '3'){
+                      var text = '3 Luci Accese';
+                    } else if(states['sensor.conteggio_gruppo_luci_camera_bagno'].state == '4'){
+                      var text = '4 Luci Accese';
+                    } else if(states['sensor.conteggio_gruppo_luci_camera_bagno'].state == '5'){
+                      var text = 'Tutto Acceso';
+                    }
+                    return text;
+                  ]]]
+                # ------------------------------------
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                entity: light.luce_studio
+                name: Studio
+                icon: phu:bulbs-sultan
+                template: 
+                  - icon_info_bg
+                  - light
+                # ------------------------------------           
+              - type: 'custom:button-card'
+                entity: light.luce_giardino
+                name: Balcone
+                icon: phu:bulbs-sultan
+                template: 
+                  - icon_info_bg
+                  - light
+  # ------------------------------------------------------------------------------------------------
+      - type: vertical-stack
+        view_layout:
+          grid-area: server
+        cards:
+          - type: 'custom:button-card'
+            template: title
+            name: Server
+            # ------------------------------------
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                entity: sensor.nuc
+                icon: mdi:server-minus
+                name: Intel NUC
+                template: 
+                  - icon_info_bg
+                  - server
+                tap_action:
+                  action: navigate
+                  navigation_path: /ndr-phoneui/system
+                # ------------------------------------
+              - type: 'custom:button-card'
+                entity: sensor.nas_space
+                icon: mdi:nas
+                name: NAS
+                template: 
+                  - icon_info_bg
+                  - system
+                label: >
+                  [[[
+                  var space = entity.state;
+                  return space + '|' + '6.0TB';
+                  ]]]
+                tap_action:
+                  action: navigate
+                  navigation_path: /ndr-phoneui/system
+                # ------------------------------------

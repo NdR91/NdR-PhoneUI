@@ -1,0 +1,303 @@
+### Vista SALA
+  - title: Living Room
+    path: living
+    icon: 'mdi:television'
+    panel: false
+    type: custom:grid-layout
+    card_mod:
+      style: |
+        ha-card {
+            background-color: var(--primary-background-color);
+            border-radius: 15px;
+            margin: 10px;
+            box-shadow:
+              {% if is_state('sun.sun', 'above_horizon') %}
+                -4px -4px 8px rgba(255, 255, 255, .5), 5px 5px 8px rgba(0, 0, 0, .03);
+              {% elif is_state('sun.sun', 'below_horizon') %}
+                -5px -5px 8px rgba(50, 50, 50, .2), 5px 5px 8px rgba(0, 0, 0, .08);
+              {% endif %}
+        }
+    layout:
+      grid-template-columns: 100%
+      grid-template-rows: auto
+      grid-template-areas: |
+        "chips"
+        "light"
+        "media"
+        "switch"
+    badges: []
+    cards:
+  # ------------------------------------------------------------------------------------------------
+      - type: horizontal-stack
+        view_layout:
+          grid-area: chips
+        cards:
+          - type: 'custom:button-card'
+            template: return_button
+            # ------------------------------------
+          - type: 'custom:button-card'
+            template: chips_light
+            entity: sensor.conteggio_gruppo_luci_sala
+          - type: 'custom:button-card'
+            # ------------------------------------
+            template: chips_temperature_room
+            entity: sensor.daikin_sala_inside_temperature
+  # ------------------------------------------------------------------------------------------------
+      - type: vertical-stack
+        view_layout:
+          grid-area: light
+        cards:    
+          - type: 'custom:button-card'
+            template: title
+            name: Luci
+            # ------------------------------------
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                entity: group.luci_sala_centrali
+                name: Luci Centrali
+                icon: phu:bulb-group
+                template: 
+                  - icon_info_bg
+                  - light_slider
+                variables:
+                  entity: "light.luci_sala_centrali"
+                  name: "Luci Centrali"
+                  icon: "phu:bulb-group"  
+                # ------------------------------------
+              - type: 'custom:button-card'
+                entity: light.led_cucina
+                name: Cucina
+                icon: phu:light-strip
+                template: 
+                  - icon_info_bg
+                  - light_slider
+                variables:
+                  entity: "light.led_cucina"
+                  name: "Cucina"   
+                  icon: "phu:light-strip"          
+                # ------------------------------------  
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                entity: light.led_scale
+                name: Scale
+                icon: phu:light-strip
+                template: 
+                  - icon_info_bg
+                  - light              
+                # ------------------------------------           
+              - type: 'custom:button-card'
+                entity: light.faretti
+                name: Faretti
+                icon: phu:ceiling-fair
+                template: 
+                  - icon_info_bg
+                  - light
+  # ------------------------------------------------------------------------------------------------
+      - type: vertical-stack
+        view_layout:
+          grid-area: media
+        cards:    
+          - type: 'custom:button-card'
+            template: title
+            name: Media  
+            # ------------------------------------  
+          - type: horizontal-stack
+            cards:
+              - entity: media_player.tv_sala 
+                name: TV
+                icon: mdi:youtube-tv
+                template: 
+                  - icon_info_bg
+                  - tv
+                type: 'custom:button-card'               
+                hold_action:
+                  action: fire-dom-event
+                  haptic: success
+                  browser_mod:
+                    command: popup
+                    title: []
+                    large: true
+                    hide_header: false
+                    auto_close: false
+                    style:
+                      $: |
+                        .mdc-dialog {
+                          backdrop-filter: blur(17px);
+                          -webkit-backdrop-filter: blur(17px);
+                          background: rgba(0,0,0,0.25);
+                        }
+                        .mdc-dialog .mdc-dialog__container .mdc-dialog__surface {
+                          background: none !important;
+                          box-shadow: none;
+                          border-radius: 0px;
+                        }
+                    card: !include /config/lovelace/NdR-PhoneUI/popup/tvremote.yaml
+                # ------------------------------------
+              - entity: media_player.appletv_soggiorno
+                name: Apple TV
+                icon: phu:apple-tv
+                template: 
+                  - icon_info_bg
+                  - apple
+                type: 'custom:button-card'
+  # ------------------------------------------------------------------------------------------------
+      - type: vertical-stack
+        view_layout:
+          grid-area: switch
+        cards:    
+          - type: 'custom:button-card'
+            template: title
+            name: Interruttori
+            # ------------------------------------
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                entity: switch.cappa
+                name: Cappa
+                icon: mdi:air-filter
+                template: 
+                  - icon_info_bg
+                  - switch
+                label: |-
+                    [[[ if (entity.state =='on')
+                        var state = "Accesa"; 
+                        else
+                      var state = "Spenta";
+                    return state ; ]]]
+                # ------------------------------------
+              - type: 'custom:button-card'
+                color_type: blank-card
+                # ------------------------------------
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                entity: switch.presa_microonde
+                name: Microonde
+                icon: mdi:microwave
+                template: 
+                  - icon_info_bg
+                  - switch
+                label: |-
+                    [[[ if (entity.state =='on')
+                        var state = "Acceso • " + states["sensor.presa_microonde_w"].state + "W"; 
+                        else
+                      var state = "Spento";
+                    return state ; ]]]
+                # ------------------------------------
+              - type: 'custom:button-card'
+                entity: switch.presa_frigorifero
+                name: Frigorifero
+                tap_action:
+                  action: none
+                icon: mdi:fridge-bottom
+                template: 
+                  - icon_info_bg
+                  - switch
+                label: |-
+                    [[[ if (entity.state =='on')
+                        var state = "Acceso • " + states["sensor.presa_frigorifero_w"].state + "W"; 
+                        else
+                      var state = "Spento";
+                    return state ; ]]]
+# --------------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------
+### Vista CAMERA + BAGNO
+  - title: Bedroom
+    path: bed
+    icon: 'mdi:television'
+    panel: false
+    type: custom:grid-layout
+    card_mod:
+      style: |
+        ha-card {
+            background-color: var(--primary-background-color);
+            border-radius: 15px;
+            margin: 10px;
+            box-shadow:
+              {% if is_state('sun.sun', 'above_horizon') %}
+                -4px -4px 8px rgba(255, 255, 255, .5), 5px 5px 8px rgba(0, 0, 0, .03);
+              {% elif is_state('sun.sun', 'below_horizon') %}
+                -5px -5px 8px rgba(50, 50, 50, .2), 5px 5px 8px rgba(0, 0, 0, .08);
+              {% endif %}
+        }
+    layout:
+      grid-template-columns: 100%
+      grid-template-rows: auto
+      grid-template-areas: |
+        "chips"
+        "camera"
+        "bagno"
+    badges: []
+    cards:
+  # ------------------------------------------------------------------------------------------------
+      - type: horizontal-stack
+        view_layout:
+          grid-area: chips
+        cards:
+          - type: 'custom:button-card'
+            template: return_button
+            # ------------------------------------
+          - type: 'custom:button-card'
+            template: chips_light
+            entity: sensor.conteggio_gruppo_luci_camera_bagno
+            # ------------------------------------
+          - type: 'custom:button-card'
+            template: chips_temperature_room
+            entity: sensor.camera_temperature
+  # ------------------------------------------------------------------------------------------------
+      - type: vertical-stack
+        view_layout:
+          grid-area: camera
+        cards:    
+          - type: 'custom:button-card'
+            template: title
+            name: Camera
+            label: 'Luci'
+            # ------------------------------------ 
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                entity: light.faretti_camera
+                name: Faretti Camera
+                icon: phu:ceiling-fair
+                template: 
+                  - icon_info_bg
+                  - light              
+                # ------------------------------------           
+              - type: 'custom:button-card'
+                entity: light.cabina_armadio
+                name: Cabina Armadio
+                icon: phu:ceiling-spot-lamp
+                template: 
+                  - icon_info_bg
+                  - light
+  # ------------------------------------------------------------------------------------------------
+      - type: vertical-stack
+        view_layout:
+          grid-area: bagno
+        cards:    
+          - type: 'custom:button-card'
+            template: title
+            name: Bagno
+            label: 'Luci'
+            # ------------------------------------ 
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                entity: light.luce_bagno
+                name: Bagno
+                icon: phu:bulbs-sultan
+                template: 
+                  - icon_info_bg
+                  - light              
+                # ------------------------------------           
+              - type: 'custom:button-card'
+                entity: switch.specchio
+                name: Specchio
+                icon: phu:amarant
+                template: 
+                  - icon_info_bg
+                  - light

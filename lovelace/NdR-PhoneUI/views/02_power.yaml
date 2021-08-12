@@ -1,0 +1,132 @@
+### Vista POWER
+  - title: Consumi
+    path: power
+    icon: 'mdi:lightning-bolt'
+    panel: false
+    type: custom:grid-layout
+    card_mod:
+      style: |
+        ha-card {
+            background-color: var(--primary-background-color);
+            border-radius: 15px;
+            margin: 10px;
+            box-shadow:
+              {% if is_state('sun.sun', 'above_horizon') %}
+                -4px -4px 8px rgba(255, 255, 255, .5), 5px 5px 8px rgba(0, 0, 0, .03);
+              {% elif is_state('sun.sun', 'below_horizon') %}
+                -5px -5px 8px rgba(50, 50, 50, .2), 5px 5px 8px rgba(0, 0, 0, .08);
+              {% endif %}
+        }
+    layout:
+      grid-template-columns: 100%
+      grid-template-rows: auto
+      grid-template-areas: |
+        "chips"
+        "energy"
+    badges: []
+    cards:
+  # ------------------------------------------------------------------------------------------------
+      - type: horizontal-stack
+        view_layout:
+          grid-area: chips
+        cards:
+          - type: 'custom:button-card'
+            template: return_button
+            # ------------------------------------
+          - type: 'custom:button-card'
+            template: chips_energy
+  # ------------------------------------------------------------------------------------------------
+      - type: vertical-stack
+        view_layout:
+          grid-area: energy
+        cards:
+          - type: 'custom:button-card'
+            template: title
+            name: Consumi
+            # ------------------------------------
+          - type: horizontal-stack           
+            cards:      
+              - type: 'custom:button-card'
+                template: graph_line
+                variables:
+                  entity: "sensor.assorbimento_totale_kw"
+                  color: "var(--google-blue-500)"
+                  name: "Assorbimento"
+                  # ------------------------------------
+              - type: 'custom:button-card'
+                template: graph_bar
+                variables:
+                  entity: "sensor.costo_energia_giorno"
+                  color: "var(--google-blue-500)"
+                  name: "Costo Giornaliero"
+                  # ------------------------------------
+      - type: vertical-stack
+        cards:
+          - type: 'custom:button-card'
+            template: title
+            name: Batterie
+            # ------------------------------------
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                entity: sensor.scurone_sala_battery
+                name: Sensore Scurone
+                template: 
+                  - icon_info_bg
+                  - generic
+                # ------------------------------------
+              - type: 'custom:button-card'
+                entity: sensor.lucernaio_studio_battery
+                name: Sensore Lucernaio
+                template: 
+                  - icon_info_bg
+                  - generic
+                # ------------------------------------
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                entity: sensor.cabina_armadio_battery
+                name: Sensore Cabina
+                template: 
+                  - icon_info_bg
+                  - generic
+                # ------------------------------------
+              - type: 'custom:button-card'
+                entity: sensor.camera_battery
+                name: Sensore Camera
+                template: 
+                  - icon_info_bg
+                  - generic
+                # ------------------------------------
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                entity: sensor.pir_1_battery
+                name: PIR PT
+                template: 
+                  - icon_info_bg
+                  - generic
+                # ------------------------------------
+              - type: 'custom:button-card'
+                entity: sensor.pir_2_battery
+                name: PIR 1P
+                template: 
+                  - icon_info_bg
+                  - generic
+                # ------------------------------------
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                entity: sensor.pulsante_sala_battery
+                name: Pulsante Sala
+                template: 
+                  - icon_info_bg
+                  - generic
+                # ------------------------------------
+              - type: 'custom:button-card'
+                entity: sensor.telecomando_sala_battery
+                name: Telecomando Hue
+                template: 
+                  - icon_info_bg
+                  - generic
+                  # ------------------------------------

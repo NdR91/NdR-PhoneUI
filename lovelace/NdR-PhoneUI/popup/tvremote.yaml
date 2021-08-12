@@ -1,0 +1,27 @@
+  type: 'custom:lg-remote-control'
+  channels:
+    - image: /local/images/tv_logo/channel_1.png
+      number: '1'
+    - image: /local/images/tv_logo/channel_2.png
+      number: '1'
+  dimensions:
+    scale: 0.85
+  entity: media_player.tv_sala
+  sources:
+    - icon: 'mdi:netflix'
+      name: Netflix
+    - icon: disney
+      name: Disney
+    - icon: dazn
+      name: Dazn
+    - icon: 'mdi:youtube-tv'
+      name: YouTube
+    - icon: 'mdi:video-input-hdmi'
+      name: HDMI 1
+    - icon: 'mdi:video-input-hdmi'
+      name: HDMI 2
+  colors:
+    buttons: '#595959'
+    # var(--deactive-background-button-color)
+    texts: white
+    background: '#262626'

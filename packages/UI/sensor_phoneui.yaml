@@ -1,0 +1,26 @@
+sensor:
+  - platform: template
+    sensors:
+      andrea:
+        friendly_name: "Andrea"
+        value_template:  '{{ (states("person.andrea")) }}'
+      sala_temperature:
+        friendly_name: "Temperatura Sala"
+        value_template: '{{ state_attr("climate.daikin_sala", "current_temperature") | int }}'
+      studio_temperature:
+        friendly_name: "Temperatura Studio"
+        value_template: '{{ state_attr("climate.daikin_studio", "current_temperature") | int }}'
+      conteggio_gruppo_luci_sala:
+        friendly_name: Conteggio Gruppo Luci Sala
+        value_template: >
+          {{ expand(states.group.luci_sala)|selectattr('state','equalto','on')|list|length }}
+      conteggio_gruppo_luci_camera_bagno:
+        friendly_name: Conteggio Gruppo Luci Camera e Bagno
+        value_template: >
+          {{ expand(states.group.luci_camera_bagno)|selectattr('state','equalto','on')|list|length }}
+      nas_space:
+        friendly_name: "Spazio Occupato NAS"
+        value_template: '{{ (((state_attr("sensor.omv_nas6tb", "Available") | float  - 6000) *-0.001) | round(1) )}}'
+      bkp_space:
+        friendly_name: "Spazio Occupato BKP"
+        value_template: '{{ (((state_attr("sensor.omv_bkp", "Available") | float  - 4000) *-0.001) | round(1) )}}'

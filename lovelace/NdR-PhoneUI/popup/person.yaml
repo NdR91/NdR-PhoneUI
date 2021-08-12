@@ -1,0 +1,470 @@
+# PERSONE IN CASA
+  type: 'custom:layout-card' 
+  view_layout:
+    grid-area: navbar
+  layout_type: grid
+  layout: 
+    grid-template-columns: 10% auto 10%
+    grid-template-rows: auto
+    grid-template-areas: |
+      ". person ."
+  cards:
+    - type: vertical-stack
+      view_layout:
+          grid-area: person
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - height: 200px
+          # Prima Riga
+        - type: horizontal-stack
+          cards:
+            # ANDRE
+            - type: 'custom:button-card' 
+              entity: person.andrea
+              name: Andre 
+              tap_action:
+                action: none
+              show_state: true
+              styles:
+                card:
+                  - border-radius: '20px'
+                grid:
+                  - grid-template-areas: '"i n n" "i s s"'
+                name:
+                  - position: absolute
+                  - top: 10px
+                  - left: 60px
+                  - font-weight: bold
+                  - font-size: 14px
+                state:
+                  - position: absolute
+                  - top: 25px
+                  - left: 60px
+                  - font-weight: bolder
+                  - font-size: 12px
+                  - filter: opacity(40%)
+                icon:
+                  - color: 'rgba(var(--color-theme),0.9)'
+                  - width: 45px
+                img_cell:
+                  - border-radius: 50%
+                  - justify-self: start
+                  - margin-left: 10px
+                  - width: 42px
+                  - height: 42px
+                custom_fields:
+                  background-color: >
+                      [[[
+                        if (states['person.andrea'].state == 'home'){
+                          return "rgba(var(--color-green),1)";
+                        }else{
+                          return "rgba(var(--color-blue),1)";
+                        }
+                      ]]]
+              show_entity_picture: true
+              state:
+                - value: 'home'
+                  entity_picture: /local/propic/andre.jpg
+                - value: 'Lavoro Andre'
+                  entity_picture: /local/propic/andregr.jpg
+                - value: 'not_home'
+                  entity_picture: /local/propic/andregr.jpg
+                - value: 'Casa Pinto'
+                  entity_picture: /local/propic/andregr.jpg
+            # MARY
+            - type: 'custom:button-card' 
+              entity: person.mary
+              name: Mary 
+              tap_action:
+                action: none
+              show_state: true
+              styles:
+                card:
+                  - border-radius: '20px'
+                grid:
+                  - grid-template-areas: '"i n n" "i s s"'
+                name:
+                  - position: absolute
+                  - top: 10px
+                  - left: 60px
+                  - font-weight: bold
+                  - font-size: 14px
+                state:
+                  - position: absolute
+                  - top: 25px
+                  - left: 60px
+                  - font-weight: bolder
+                  - font-size: 12px
+                  - filter: opacity(40%)
+                icon:
+                  - color: 'rgba(var(--color-theme),0.9)'
+                  - width: 45px
+                img_cell:
+                  - border-radius: 50%
+                  - justify-self: start
+                  - margin-left: 10px
+                  - width: 42px
+                  - height: 42px
+                custom_fields:
+                  background-color: >
+                      [[[
+                        if (states['person.andrea'].state == 'home'){
+                          return "rgba(var(--color-green),1)";
+                        }else{
+                          return "rgba(var(--color-blue),1)";
+                        }
+                      ]]]
+              show_entity_picture: true
+              state:
+                - value: 'home'
+                  entity_picture: /local/propic/mary.jpg
+                - value: 'Lavoro Mary'
+                  entity_picture: /local/propic/marygr.jpg
+                - value: 'not_home'
+                  entity_picture: /local/propic/marygr.jpg
+                - value: 'Casa Pinto'
+                  entity_picture: /local/propic/marygr.jpg
+            # --------------------------------------------------------------------------------------    
+          # Seconda Riga
+        - type: horizontal-stack
+          cards:
+            # LINA
+            - type: 'custom:button-card' 
+              entity: person.lina
+              name: Lina 
+              tap_action:
+                action: none
+              show_state: true
+              styles:
+                card:
+                  - border-radius: '20px'
+                grid:
+                  - grid-template-areas: '"i n n" "i s s"'
+                name:
+                  - position: absolute
+                  - top: 10px
+                  - left: 60px
+                  - font-weight: bold
+                  - font-size: 14px
+                state:
+                  - position: absolute
+                  - top: 25px
+                  - left: 60px
+                  - font-weight: bolder
+                  - font-size: 12px
+                  - filter: opacity(40%)
+                icon:
+                  - color: 'rgba(var(--color-theme),0.9)'
+                  - width: 45px
+                img_cell:
+                  - border-radius: 50%
+                  - justify-self: start
+                  - margin-left: 10px
+                  - width: 42px
+                  - height: 42px
+              show_entity_picture: true
+              state:
+                - value: 'home'
+                  entity_picture: /local/propic/lina.jpg
+                - value: 'not_home'
+                  entity_picture: /local/propic/linagr.jpg
+            # --------------------------------------------------------------------------------------    
+            # GERRY
+            - type: 'custom:button-card' 
+              entity: person.gerry
+              name: Gerry 
+              tap_action:
+                action: none
+              show_state: true
+              styles:
+                card:
+                  - border-radius: '20px'
+                grid:
+                  - grid-template-areas: '"i n n" "i s s"'
+                name:
+                  - position: absolute
+                  - top: 10px
+                  - left: 60px
+                  - font-weight: bold
+                  - font-size: 14px
+                state:
+                  - position: absolute
+                  - top: 25px
+                  - left: 60px
+                  - font-weight: bolder
+                  - font-size: 12px
+                  - filter: opacity(40%)
+                icon:
+                  - color: 'rgba(var(--color-theme),0.9)'
+                  - width: 45px
+                img_cell:
+                  - border-radius: 50%
+                  - justify-self: start
+                  - margin-left: 10px
+                  - width: 42px
+                  - height: 42px
+              show_entity_picture: true
+              state:
+                - value: 'home'
+                  entity_picture: /local/propic/gerry.jpg
+                - value: 'not_home'
+                  entity_picture: /local/propic/gerrygr.jpg
+            # --------------------------------------------------------------------------------------    
+          # Terza Riga
+        - type: horizontal-stack
+          cards:
+            # LINA
+            - type: 'custom:button-card' 
+              entity: person.roby
+              name: Roby 
+              tap_action:
+                action: none
+              show_state: true
+              styles:
+                card:
+                  - border-radius: '20px'
+                grid:
+                  - grid-template-areas: '"i n n" "i s s"'
+                name:
+                  - position: absolute
+                  - top: 10px
+                  - left: 60px
+                  - font-weight: bold
+                  - font-size: 14px
+                state:
+                  - position: absolute
+                  - top: 25px
+                  - left: 60px
+                  - font-weight: bolder
+                  - font-size: 12px
+                  - filter: opacity(40%)
+                icon:
+                  - color: 'rgba(var(--color-theme),0.9)'
+                  - width: 45px
+                img_cell:
+                  - border-radius: 50%
+                  - justify-self: start
+                  - margin-left: 10px
+                  - width: 42px
+                  - height: 42px
+              show_entity_picture: true
+              state:
+                - value: 'home'
+                  entity_picture: /local/propic/roby.jpg
+                - value: 'not_home'
+                  entity_picture: /local/propic/robygr.jpg
+            # --------------------------------------------------------------------------------------    
+            # NONNA LUCIA
+            - type: 'custom:button-card' 
+              entity: person.nonna_lucia
+              name: Lucia 
+              tap_action:
+                action: none
+              show_state: true
+              styles:
+                card:
+                  - border-radius: '20px'
+                grid:
+                  - grid-template-areas: '"i n n" "i s s"'
+                name:
+                  - position: absolute
+                  - top: 10px
+                  - left: 60px
+                  - font-weight: bold
+                  - font-size: 14px
+                state:
+                  - position: absolute
+                  - top: 25px
+                  - left: 60px
+                  - font-weight: bolder
+                  - font-size: 12px
+                  - filter: opacity(40%)
+                icon:
+                  - color: 'rgba(var(--color-theme),0.9)'
+                  - width: 45px
+                img_cell:
+                  - border-radius: 50%
+                  - justify-self: start
+                  - margin-left: 10px
+                  - width: 42px
+                  - height: 42px
+              show_entity_picture: true
+              state:
+                - value: 'home'
+                  entity_picture: /local/propic/nlucia.jpg
+                - value: 'not_home'
+                  entity_picture: /local/propic/nluciagr.jpg
+            # --------------------------------------------------------------------------------------
+          # quarta Riga
+        - type: horizontal-stack
+          cards:
+            # LUCIA
+            - type: 'custom:button-card' 
+              entity: person.lucia
+              name: Lu
+              tap_action:
+                action: none
+              show_state: true
+              styles:
+                card:
+                  - border-radius: '20px'
+                grid:
+                  - grid-template-areas: '"i n n" "i s s"'
+                name:
+                  - position: absolute
+                  - top: 10px
+                  - left: 60px
+                  - font-weight: bold
+                  - font-size: 14px
+                state:
+                  - position: absolute
+                  - top: 25px
+                  - left: 60px
+                  - font-weight: bolder
+                  - font-size: 12px
+                  - filter: opacity(40%)
+                icon:
+                  - color: 'rgba(var(--color-theme),0.9)'
+                  - width: 45px
+                img_cell:
+                  - border-radius: 50%
+                  - justify-self: start
+                  - margin-left: 10px
+                  - width: 42px
+                  - height: 42px
+              show_entity_picture: true
+              state:
+                - value: 'home'
+                  entity_picture: /local/propic/lucia.jpg
+                - value: 'not_home'
+                  entity_picture: /local/propic/luciagr.jpg
+            # --------------------------------------------------------------------------------------    
+            # ARY
+            - type: 'custom:button-card' 
+              entity: person.ary
+              name: Ary
+              tap_action:
+                action: none
+              show_state: true
+              styles:
+                card:
+                  - border-radius: '20px'
+                grid:
+                  - grid-template-areas: '"i n n" "i s s"'
+                name:
+                  - position: absolute
+                  - top: 10px
+                  - left: 60px
+                  - font-weight: bold
+                  - font-size: 14px
+                state:
+                  - position: absolute
+                  - top: 25px
+                  - left: 60px
+                  - font-weight: bolder
+                  - font-size: 12px
+                  - filter: opacity(40%)
+                icon:
+                  - color: 'rgba(var(--color-theme),0.9)'
+                  - width: 45px
+                img_cell:
+                  - border-radius: 50%
+                  - justify-self: start
+                  - margin-left: 10px
+                  - width: 42px
+                  - height: 42px
+              show_entity_picture: true
+              state:
+                - value: 'home'
+                  entity_picture: /local/propic/ary.jpg
+                - value: 'not_home'
+                  entity_picture: /local/propic/arygr.jpg
+            # --------------------------------------------------------------------------------------
+          # quinta Riga
+        - type: horizontal-stack
+          cards:
+            # BARBARA
+            - type: 'custom:button-card' 
+              entity: person.barbara
+              name: Barbara 
+              tap_action:
+                action: none
+              show_state: true
+              styles:
+                card:
+                  - border-radius: '20px'
+                grid:
+                  - grid-template-areas: '"i n n" "i s s"'
+                name:
+                  - position: absolute
+                  - top: 10px
+                  - left: 60px
+                  - font-weight: bold
+                  - font-size: 14px
+                state:
+                  - position: absolute
+                  - top: 25px
+                  - left: 60px
+                  - font-weight: bolder
+                  - font-size: 12px
+                  - filter: opacity(40%)
+                icon:
+                  - color: 'rgba(var(--color-theme),0.9)'
+                  - width: 45px
+                img_cell:
+                  - border-radius: 50%
+                  - justify-self: start
+                  - margin-left: 10px
+                  - width: 42px
+                  - height: 42px
+              show_entity_picture: true
+              state:
+                - value: 'home'
+                  entity_picture: /local/propic/barbara.jpg
+                - value: 'not_home'
+                  entity_picture: /local/propic/barbaragr.jpg
+            # --------------------------------------------------------------------------------------    
+            # ARY
+            - type: 'custom:button-card' 
+              entity: person.mattia
+              name: Met
+              tap_action:
+                action: none
+              show_state: true
+              styles:
+                card:
+                  - border-radius: '20px'
+                grid:
+                  - grid-template-areas: '"i n n" "i s s"'
+                name:
+                  - position: absolute
+                  - top: 10px
+                  - left: 60px
+                  - font-weight: bold
+                  - font-size: 14px
+                state:
+                  - position: absolute
+                  - top: 25px
+                  - left: 60px
+                  - font-weight: bolder
+                  - font-size: 12px
+                  - filter: opacity(40%)
+                icon:
+                  - color: 'rgba(var(--color-theme),0.9)'
+                  - width: 45px
+                img_cell:
+                  - border-radius: 50%
+                  - justify-self: start
+                  - margin-left: 10px
+                  - width: 42px
+                  - height: 42px
+              show_entity_picture: true
+              state:
+                - value: 'home'
+                  entity_picture: /local/propic/mattia.jpg
+                - value: 'not_home'
+                  entity_picture: /local/propic/mattiagr.jpg
+            # --------------------------------------------------------------------------------------

@@ -1,0 +1,180 @@
+### Vista SYSTEM
+  - title: System
+    path: system
+    icon: 'mdi:server'
+    panel: false
+    type: custom:grid-layout
+    card_mod:
+      style: |
+        ha-card {
+            background-color: var(--primary-background-color);
+            border-radius: 15px;
+            margin: 10px;
+            box-shadow:
+              {% if is_state('sun.sun', 'above_horizon') %}
+                -4px -4px 8px rgba(255, 255, 255, .5), 5px 5px 8px rgba(0, 0, 0, .03);
+              {% elif is_state('sun.sun', 'below_horizon') %}
+                -5px -5px 8px rgba(50, 50, 50, .2), 5px 5px 8px rgba(0, 0, 0, .08);
+              {% endif %}
+        }
+    layout:
+      grid-template-columns: 100%
+      grid-template-rows: auto
+      grid-template-areas: |
+        "chips"
+        "nas"
+        "ha"
+        "nuc"
+        "rpi"
+    badges: []
+    cards:
+  # ------------------------------------------------------------------------------------------------
+      - type: horizontal-stack
+        view_layout:
+          grid-area: chips
+        cards:
+          - type: 'custom:button-card'
+            template: return_button
+            # ------------------------------------
+          - type: 'custom:button-card'
+            template: chips_nuc
+            # ------------------------------------
+          - type: 'custom:button-card'
+            template: chips_rpi
+  # ------------------------------------------------------------------------------------------------
+      - type: vertical-stack
+        view_layout:
+          grid-area: nas
+        cards:
+          - type: 'custom:button-card'
+            template: title
+            name: NAS
+            entity: sensor.omv_uptime
+            label: |
+              [[[return 'Uptime: ' + entity.state + ' ore']]]
+            # ------------------------------------
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                entity: sensor.nas_space
+                icon: mdi:nas
+                name: HDD 6TB
+                template: 
+                  - icon_info_bg
+                  - system
+                label: >
+                  [[[
+                  var space = entity.state;
+                  return space + '|' + '6.0TB';
+                  ]]]
+                tap_action:
+                  action: null
+                # ------------------------------------
+              - type: 'custom:button-card'
+                entity: sensor.bkp_space
+                icon: mdi:nas
+                name: Backup 4TB
+                template: 
+                  - icon_info_bg
+                  - system
+                label: >
+                  [[[
+                  var space = entity.state;
+                  return space + '|' + '4.0TB';
+                  ]]]
+                tap_action:
+                  action: null
+  # ------------------------------------------------------------------------------------------------
+      - type: vertical-stack
+        view_layout:
+          grid-area: ha
+        cards:
+          - type: 'custom:button-card'
+            template: title
+            name: Home Assistant
+            entity: sensor.ha_uptime_hour
+            label: |
+              [[[return 'Uptime: ' + entity.state]]]
+            # ------------------------------------
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                entity: sensor.ha_version_installed
+                icon: mdi:home-assistant
+                name: Installata
+                template: 
+                  - icon_info_bg
+                  - system
+                label: >
+                  [[[
+                  var version = entity.state;
+                  return version;
+                  ]]]
+                tap_action:
+                  action: null
+                # ------------------------------------
+              - type: 'custom:button-card'
+                entity: sensor.ha_version_latest
+                icon: mdi:update
+                name: Disponibile
+                template: 
+                  - icon_info_bg
+                  - system
+                label: >
+                  [[[
+                  var version = entity.state;
+                  return version;
+                  ]]]
+                tap_action:
+                  action: null
+# ------------------------------------------------------------------------------------------------
+      - type: vertical-stack
+        view_layout:
+          grid-area: nuc
+        cards:
+          - type: 'custom:button-card'
+            template: title
+            name: Intel NUC
+            # ------------------------------------
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                template: graph_line
+                variables:
+                  entity: "sensor.intel_nuc_cpu_temp"
+                  color: "var(--google-blue-500)"
+                  name: "Temperatura CPU"
+                # ------------------------------------
+              - type: 'custom:button-card'
+                template: graph_line
+                variables:
+                  entity: "sensor.processor_use"
+                  icon: "mdi:chart-donut"
+                  color: "var(--google-blue-500)"
+                  name: "Utilizzo CPU"
+  # ------------------------------------------------------------------------------------------------
+      - type: vertical-stack
+        view_layout:
+          grid-area: rpi
+        cards:
+          - type: 'custom:button-card'
+            template: title
+            name: RPi 4
+            # ------------------------------------
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                template: graph_line
+                variables:
+                  entity: "sensor.rpi4_temperature"
+                  color: "var(--google-blue-500)"
+                  name: "Temperatura CPU"
+                # ------------------------------------
+              - type: 'custom:button-card'
+                template: graph_line
+                variables:
+                  entity: "sensor.rpi4_cpu_usage"
+                  icon: "mdi:chart-donut"
+                  color: "var(--google-blue-500)"
+                  name: "Utilizzo CPU"
+  # ------------------------------------------------------------------------------------------------

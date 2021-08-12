@@ -1,0 +1,8 @@
+# Titolo
+title: Home
+# --------------------------------------------------------
+# Button Card Templates
+button_card_templates: !include lovelace/NdR-PhoneUI/button_card_templates.yaml
+# Viste
+views: !include_dir_merge_list lovelace/NdR-PhoneUI/views/ 
+# --------------------------------------------------------
