@@ -1,5 +1,7 @@
 # NDR PHoneUI
 
+## README NON COMPLETO
+
 #### Screenshots
 
 <p align="center">
