@@ -41,7 +41,7 @@ Questa Dashboard è ispirata al lavoro di [TBens](https://github.com/TBens): [lo
 
 ## Icona Batteria
 
-<img src="/www/screenshots/battery_icon.png" width="600" />
+<img src="/www/screenshots/battery_icon.jpg" width="600" />
 
 ## Avviso entità non disponibile
 
@@ -49,4 +49,4 @@ Questa Dashboard è ispirata al lavoro di [TBens](https://github.com/TBens): [lo
 
 ## Stato Entità
 
-<img src="/www/screenshots/climate_state.png" width="600" />
+<img src="/www/screenshots/climate_state.jpg" width="600" />
