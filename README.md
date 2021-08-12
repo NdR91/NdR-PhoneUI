@@ -36,7 +36,7 @@ Questa Dashboard è ispirata al lavoro di [TBens](https://github.com/TBens): [lo
 
 # Esempi Card
 ## Localizzazione
-<img src="/www/screenshots/location.png" width="500" />
+<img src="/www/screenshots/location.png" width="600" />
 
 ## Avviso entità non disponibile
-<img src="/www/screenshots/state_warning.png" width="500" />
+<img src="/www/screenshots/state_warning.png" width="700" />
