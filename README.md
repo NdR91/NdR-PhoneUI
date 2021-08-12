@@ -3,7 +3,7 @@
 #### Screenshots
 
 <p align="center">
-<img src="/www/screenshots/home_9" width="150" /> <img src="/www/screenshots/power" width="150" /> <img src="/www/screenshots/room" width="150" />
+<img src="/www/screenshots/home_9.png" width="150" /> <img src="/www/screenshots/power.png" width="150" /> <img src="/www/screenshots/room.png" width="150" />
 </p>
 
 Questa Dashboard è ispirata al lavoro di [TBens](https://github.com/TBens): [lovelace-ui-minimalist](https://github.com/TBens/lovelace-ui-minimalist#cards)
