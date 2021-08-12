@@ -784,6 +784,10 @@
           var mode = 'Ventilatore';
         } else if(entity.state == 'off'){
           var mode = 'Spento';
+        } else if(entity.state == 'unknown'){
+          var mode = 'Non Disponibile';
+        } else if(entity.state == 'unavailable'){
+          var mode = 'Non Disponibile';        
         }
         return mode;
       ]]]
@@ -877,7 +881,9 @@
           var text = 'Luce Spenta';
         } else if(entity.state == 'unknown'){
           var text = 'Non Disponibile';
-        }
+        } else if(entity.state == 'unavailable'){
+          var text = 'Non Disponibile';
+        }       
         return text;
       ]]]
     template: 
@@ -1069,12 +1075,16 @@
           label: 
             - color: white
             - filter: opacity(100%)
+            - '-webkit-text-stroke': 0.5px black
+            - text-shadow: -2px 2px 4px black
           img_cell:
-            - background-color: 'rgba(var(--color-theme),0.0)'
+            - background-color: 'rgba(var(--color-theme),0.5)'
           icon:
             - color: white
           name:
             - color: white
+            - '-webkit-text-stroke': 0.5px black
+            - text-shadow: -2px 2px 4px black
     tap_action:
       action: more-info
       haptic: light
@@ -1128,18 +1138,22 @@
             ]]]
         label: >
             [[[
-              return entity.attributes.source;
+              return entity.attributes.media_artist;
             ]]]
         styles:
           label: 
             - color: white
             - filter: opacity(100%)
+            - '-webkit-text-stroke': 0.5px grey
+            - text-shadow: -2px 2px 4px black
           img_cell:
-            - background-color: 'rgba(var(--color-theme),0.0)'
+            - background-color: 'rgba(var(--color-theme),0.5)'
           icon:
             - color: white
           name:
             - color: white
+            - '-webkit-text-stroke': 0.5px grey
+            - text-shadow: 2px 2px 4px black
     tap_action:
       action: more-info
       haptic: light
