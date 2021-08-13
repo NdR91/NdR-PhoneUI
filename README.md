@@ -21,6 +21,7 @@ Questa Dashboard è ispirata al lavoro di [TBens](https://github.com/TBens): [lo
 - [Preparazione](#preparazione)
   - [File configuration.yaml](#file-configuration.yaml)
   - [Card](#card)
+  - [Split della configurazione](#split-della-configurazione)
   - [File button-card-template.yaml](#file-button-card-template.yaml)  
 - [Esempi](#esempi)
   - [Localizzazione](#localizzazione)
@@ -53,9 +54,70 @@ lovelace:
 ```
 > *Nota: molto importante la parte **mode: storage**. Questo significa che potrete utilizzare sia Dashboard create da Frontend che in modalità yaml*
 
-## Card
+## Card ed Integrazioni
 
+Il numero ed il tipo di Card ed Integrazioni da utilizzare è totalmente soggettivo. 
+Quelle che però risultano necessarie per ottenere il risultato mostrato negli screenshots, sono le seguenti:
 
+- [x] [Layout Card](https://github.com/thomasloven/lovelace-layout-card)
+- [x] [Card Mod](https://github.com/thomasloven/lovelace-card-mod)
+- [x] [Button Card](https://github.com/custom-cards/button-card)
+- [x] [Browser Mod](https://github.com/thomasloven/hass-browser_mod)
+
+Le istruzioni per l'installazione di ogni componente aggiuntivo sono disponibili nelle repo GitHub linkate.
+
+## Split della configurazione
+
+Come avviene per il `configuration.yaml`, anche il file relativo alla Dashboard può essere "spezzettato" in più file.
+Questa pratica non è obbligatoria, serve solo a creare ordine.
+
+Nell'esempio di questa Repo, troverete questa configurazione all'interno del file `ndr_phoneui.yaml`:
+
+> *Ricordo che il nome del file può essere cambiato a piacimento. L'importante è che il nome combaci con il campo `filename:` presente nel `configuration.yaml`*
+
+```yaml
+# Titolo
+title: Home
+# --------------------------------------------------------
+# Button Card Templates
+button_card_templates: !include lovelace/NdR-PhoneUI/button_card_templates.yaml
+# --------------------------------------------------------
+# Viste
+views: !include_dir_merge_list lovelace/NdR-PhoneUI/views/ 
+# --------------------------------------------------------
+```
+Come intuibile, queste poche righe non fanno altro che indicare dove Home Assistant dovrà andare a trovare i file contenenti gli elementi che compongono la Dashboard.
+
+Oltre a quanto sopra, si aggiungono i "Popup", realizzati grazie all'integrazione Browser Mod. Per ridurre ulteriormente la dimensione di ogni file, ho deciso di spostare le card relative ai Popup in una cartella dedicata.
+
+Per fare questo, è bastato richiamare il percorso in questo modo:
+
+```yaml
+tap_action:
+  action: fire-dom-event
+  browser_mod:
+    command: popup
+    title: []
+    style:
+    card: !include /config/lovelace/NdR-PhoneUI/popup/person.yaml
+```
+In sostanza, questa è la rappresentazione dell'organbizzazione ho ho voluto dare:
+
+```bash
+ndr_phoneui.yaml
+├── lovelace/NdR-PhoneUI
+│   ├── button_card_templates.yaml
+│   ├── views
+│   │   ├── 01_home.yaml
+│   │   ├── 02_power.yaml
+│   │   ├── 03_system.yaml
+│   │   ├── 04_rooms.yaml
+│   ├── popup
+│   │   ├── alarm.yaml
+│   │   ├── person.yaml
+│   │   ├── tvremote.yaml
+```
+ 
 ## File button-card-template.yaml
 
 
