@@ -18,15 +18,40 @@ Questa Dashboard è ispirata al lavoro di [TBens](https://github.com/TBens): [lo
 
 # Indice
 
-- [Button Card](#button-card)
+- [Preparazione](#preparazione)
+  - [File configuration.yaml](#file-configuration.yaml)
   - [Card](#card)
   - [File button-card-template.yaml](#file-button-card-template.yaml)  
 - [Esempi](#esempi)
   - [Localizzazione](#localizzazione)
   - [Avviso entità non disponibile](#avviso-entità-non-disponibile)  
 
-# Button Card
+# Preparazione
 
+Per installare ed adattare la Dashboard, è prima necessario eseguire una serie di passi.
+
+## File configuration.yaml
+
+Il metodo migliore per lavorare su una UI così complessa, è quello di utilizzare un file `.yaml` al posto degli strumenti messi a disposizione sul Frontend di Home Assistant.
+Per conservare la possibilità di utilizzare entrambi i metodi (ovvero la creazione di "Plance" sia da frontend che da file `yaml`), sarà necessario inserire questo paragrafo al `configuration.yaml`:
+
+```yaml
+lovelace:
+  # MODE
+  mode: storage
+  # ------------------------------------------------------
+  # Dashoards
+  dashboards:
+    # NdR Phone UI
+    ndr-phoneui: #<-- Nome a piacimento
+      mode: yaml
+      title: NdR Phone UI #<-- Titolo a piacimento
+      icon: mdi:home-assistant #<-- Icona a piacimento
+      show_in_sidebar: true
+      filename: ndr_phoneui.yaml  #<-- Nome a piacimento
+    # ----------------------------------------------------
+```
+> *Nota: molto importante la parte **mode: storage**. Questo significa che potrete utilizzare sia Dashboard create da Frontend che in modalità yaml*
 
 ## Card
 
