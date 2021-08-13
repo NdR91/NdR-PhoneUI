@@ -8,7 +8,9 @@
 <img src="/www/screenshots/home_9.png" width="220" /> <img src="/www/screenshots/power.png" width="220" /> <img src="/www/screenshots/room.png" width="220" />
 </p>
 
-Questa Dashboard è ispirata al lavoro di [TBens](https://github.com/TBens): [lovelace-ui-minimalist](https://github.com/TBens/lovelace-ui-minimalist#cards)
+Credits:
+- Questa Dashboard è ispirata al lavoro di [TBens](https://github.com/TBens): [lovelace-ui-minimalist](https://github.com/TBens/lovelace-ui-minimalist)
+- Molte delle icone utilizzate provengono dall'ottima repo di [elax46](https://github.com/elax46): [custom-brand-icons](https://github.com/elax46/custom-brand-icons)
 
 #### Se ti piace il mio lavoro...
 
