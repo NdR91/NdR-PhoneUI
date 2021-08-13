@@ -101,7 +101,7 @@ tap_action:
     style:
     card: !include /config/lovelace/NdR-PhoneUI/popup/person.yaml
 ```
-In sostanza, questa è la rappresentazione dell'organbizzazione ho ho voluto dare:
+In sostanza, questa è la rappresentazione dell'organizzazione ho ho voluto dare:
 
 ```bash
 ndr_phoneui.yaml
@@ -117,9 +117,51 @@ ndr_phoneui.yaml
 │   │   ├── person.yaml
 │   │   ├── tvremote.yaml
 ```
- 
-## File button-card-template.yaml
 
+All'atto pratico, cosa significa tutto questo?
+E' molto semplice:
+
+Se, come descritto sopra, nel file di lovelace (`ndr_phoneui.yaml` nell'esempio in questa repo) è presente:
+
+```yaml
+views: !include_dir_merge_list lovelace/NdR-PhoneUI/views/ 
+```
+E dentro la cartella `views` abbiamo il file `01_home.yaml`, con al suo interno qualcosa tipo:
+
+```yaml
+  - title: Home
+    path: home
+    icon: 'mdi:home-roof'
+    panel: false
+    type: custom:grid-layout
+    badges: []
+    cards:
+```
+
+Il risultato, per Home Assistant, è come se avessimo __un unico file `ndr_phoneui.yaml`__ contenente tutto:
+
+```yaml
+# Titolo
+title: Home
+# --------------------------------------------------------
+# Button Card Templates
+button_card_templates: !include lovelace/NdR-PhoneUI/button_card_templates.yaml
+# --------------------------------------------------------
+# Viste
+views: 
+  - title: Home
+    path: home
+    icon: 'mdi:home-roof'
+    panel: false
+    type: custom:grid-layout
+    badges: []
+    cards:
+```
+
+## File button-card-templates.yaml
+
+Il file `button-card-templates.yaml` funziona in modo molto simile ai popup di browser-mod. 
+In sostanza esso contiene una serie di "frazioni di button card standard", che possono essere richiamate dalle "viste" 
 
 # Esempi
 ## Localizzazione
