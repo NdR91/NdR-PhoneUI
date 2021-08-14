@@ -165,6 +165,8 @@ views:
 Il file `button-card-templates.yaml` funziona in modo molto simile ai popup di browser-mod. 
 In sostanza esso contiene una serie di "frazioni di button card standard", che possono essere richiamate dalle "viste" 
 
+> README in aggiornamento...
+
 # Esempi
 ## Localizzazione
 
