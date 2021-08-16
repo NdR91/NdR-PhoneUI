@@ -1,7 +1,5 @@
 # PERSONE IN CASA
   type: 'custom:layout-card' 
-  view_layout:
-    grid-area: navbar
   layout_type: grid
   layout: 
     grid-template-columns: 10% auto 10%
