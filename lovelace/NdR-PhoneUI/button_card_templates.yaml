@@ -560,7 +560,7 @@
     size: 20px
     label: >
       [[[
-        return states['sensor.assorbimento_totale_w'].state + ' ' + 'W' ;
+        return Math.round(states['sensor.shelly_em_ch1_assorbimento'].state) + ' ' + 'W' ;
       ]]]
     tap_action:
       action: navigate
