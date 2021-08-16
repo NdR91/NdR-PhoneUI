@@ -3,8 +3,8 @@
     - card:
         entity: alarm_control_panel.allarme
         states:
-          - armed_home
-          - armed_away
+          - arm_home
+          - arm_away
         style:
           .: |
             ha-card{
@@ -50,8 +50,8 @@
 
                 #button > span.slot-container::before{
                   color: var(--mdc-theme-primary, #6200ee);
-                  content: "First";
-                  margin: 0 0 0 50%;
+                  content: "Casa";
+                  margin: 0 0 0 0%;
                 }
             mwc-button:nth-child(2):
               $: |
