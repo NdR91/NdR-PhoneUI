@@ -1,0 +1,261 @@
+# Allarme
+alarm_control_panel:
+  - platform: manual
+    name: Allarme
+    code: !secret alarm_code
+    code_arm_required: false
+    # ------------------------------------------------------------
+    # Allarme impostato quando qualcuno è in casa
+    armed_home:
+      # Tempo di inserimento
+      arming_time: 0
+    # ------------------------------------------------------------
+    # Allarme impostato a Casa vuota
+    armed_away:
+      # Tempo di inserimento
+      arming_time: 180
+      # ----------------------------------------------------------
+      # Ritardo attivazione Allarme
+      delay_time: 60
+    # ------------------------------------------------------------
+    # Allarme impostato di notte
+    armed_night:
+      # Tempo di inserimento
+      arming_time: 0
+    # ------------------------------------------------------------
+    # Allarme non inserito
+    disarmed:
+      # L'allarme non viene mai innescato (0)
+      trigger_time: 0
+    # ------------------------------------------------------------
+# Automazioni
+automation:
+  # Inserimento Allarme a casa vuota
+  - id: 279e6fbd-306c-44d4-920c-8f013f027d98
+    alias: 'Allarme - Casa Vuota'
+    trigger:
+      - platform: state
+        entity_id: group.tutti
+        to: 'not_home'
+    action:
+      service: alarm_control_panel.alarm_arm_away
+      data: 
+        code: !secret alarm_code
+      target:
+        entity_id: alarm_control_panel.allarme
+  # ------------------------------------------------------------
+  # Allarme inserito quando in casa
+  - id: b230df70-f3e4-42f3-9306-ee73d66ab259
+    alias: 'Allarme - In Casa'
+    trigger:
+      - platform: state
+        entity_id: group.tutti
+        to: 'home'
+    action:
+      service: alarm_control_panel.alarm_arm_home
+      data: 
+        code: !secret alarm_code
+      target:
+        entity_id: alarm_control_panel.allarme
+  # ------------------------------------------------------------
+  # Attiva Allarme quando in casa di notte
+  - id: 39280f98-3015-42df-a8c7-4d8228e7c1e9
+    alias: 'Allarme - Notte (attivo)'
+    trigger:
+      - platform: time
+        at: "23:00:00"
+    condition:
+      - condition: state
+        entity_id: group.tutti
+        state: 'home'
+    action:
+      service: alarm_control_panel.alarm_arm_night
+      data: 
+        code: !secret alarm_code
+      target:
+        entity_id: alarm_control_panel.allarme
+  # ------------------------------------------------------------
+  # Disattiva Allarme quando in casa di mattina
+  - id: d170839c-78f4-42b5-91c8-2a5fb28d587d
+    alias: 'Allarme - Notte (disattivo)'
+    trigger:
+      - platform: time
+        at: "07:00:00"
+    condition:
+      - condition: state
+        entity_id: group.tutti
+        state: 'home'
+    action:
+      service: alarm_control_panel.alarm_disarm
+      data: 
+        code: !secret alarm_code
+      target:
+        entity_id: alarm_control_panel.allarme
+  # ------------------------------------------------------------
+  # Allarme inserito quando in casa - Dopo notte
+  - id: 471d86f6-5ae8-4d51-91a3-d9743a85683a
+    alias: 'Allarme - In Casa Temporizzato'
+    trigger:
+      - platform: time
+        at: "09:00:00"
+    condition:
+      - condition: state
+        entity_id: group.tutti
+        state: 'home'
+    action:
+      service: alarm_control_panel.alarm_arm_home
+      data: 
+        code: !secret alarm_code
+      target:
+        entity_id: alarm_control_panel.allarme
+  # ------------------------------------------------------------
+  # SIRENE
+  # Attivazione sirena - Armed Away
+  - id: 6fcb7b8e-a074-4d78-b0aa-1b93a782e294
+    alias: 'Allarme - Sirena su Armed Away'
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.movimento_camera
+        to: "on"
+      - platform: state
+        entity_id: binary_sensor.ingresso_person_motion
+        to: "on"
+      - platform: state
+        entity_id: binary_sensor.scale_person_motion
+        to: "on"
+      - platform: state
+        entity_id: binary_sensor.scurone_sala_contact
+        to: "on"
+      - platform: state
+        entity_id: binary_sensor.lucernaio_studio_contact
+        to: "on"
+    condition:
+      - condition: state
+        entity_id: alarm_control_panel.allarme
+        state: armed_away
+    action:
+      - service: alarm_control_panel.alarm_trigger
+        target:
+          entity_id: alarm_control_panel.allarme
+      - service: script.cam_notifica_snapshot_totale
+  # ------------------------------------------------------------
+  # Attivazione sirena - Armed Home
+  - id: f4035dfb-2580-437a-89e7-a0544c7c929d
+    alias: 'Allarme - Sirena su Armed Home'
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.scale_person_motion
+        to: "on"
+    condition:
+      - condition: state
+        entity_id: alarm_control_panel.allarme
+        state: armed_home
+    action:
+      - service: alarm_control_panel.alarm_trigger
+        target:
+          entity_id: alarm_control_panel.allarme
+      - service: notify.alexa_media_show_sala
+        data:
+          message: Persona rilevata sulle scale
+          title: HomeAssistant
+          data: 
+            type: announce
+            method: spoken
+  # ------------------------------------------------------------
+  # Attivazione sirena - Armed Night
+  - id: c7b0261d-8410-45d3-9caa-edac36e1c85f
+    alias: 'Allarme - Sirena su Armed Night'
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.ingresso_person_motion
+        to: "on"
+      - platform: state
+        entity_id: binary_sensor.scale_person_motion
+        to: "on"
+      - platform: state
+        entity_id: binary_sensor.scurone_sala_contact
+        to: "on"
+      - platform: state
+        entity_id: binary_sensor.lucernaio_studio_contact
+        to: "on"
+    condition:
+      - condition: state
+        entity_id: alarm_control_panel.allarme
+        state: armed_night
+    action:
+      - service: alarm_control_panel.alarm_trigger
+        target:
+          entity_id: alarm_control_panel.allarme
+      - service: script.cam_notifica_snapshot_totale
+  # ------------------------------------------------------------
+  # FRIGATE - Automazioni basate sullo stato dell'Allarme
+  # Rilevamento Armed Away
+  - id: a2e5cb1f-2657-470b-b02c-f96c28d6448e
+    alias: ' Allarme - Frigate Armed Away'
+    trigger: 
+      - platform: state
+        entity_id: alarm_control_panel.allarme
+        to: 'armed_away'
+    action:
+      service: switch.turn_on
+      entity_id: switch.sala_detect, switch.ingresso_detect, switch.scale_detect
+  # ------------------------------------------------------------
+  # Rilevamento Armed Night
+  - id: ab4266ed-2aa1-4baa-b81e-238c38989157
+    alias: ' Allarme - Frigate Armed Night'
+    trigger: 
+      - platform: state
+        entity_id: alarm_control_panel.allarme
+        to: 'armed_night'
+    action:
+      - service: switch.turn_on
+        entity_id: switch.ingresso_detect, switch.scale_detect
+      - service: switch.turn_off
+        entity_id: switch.sala_detect
+  # ------------------------------------------------------------
+  # Rilevamento Armed Home
+  - id: 8966d5b9-23e7-4fd2-aed7-401f038b84c0
+    alias: ' Allarme - Frigate Armed Home'
+    trigger: 
+      - platform: state
+        entity_id: alarm_control_panel.allarme
+        to: 'armed_home'
+    action:
+      - service: switch.turn_on
+        entity_id: switch.scale_detect
+      - service: switch.turn_off
+        entity_id: switch.sala_detect, switch.ingresso_detect
+  # ------------------------------------------------------------
+  # Rilevamento Armed Night
+  - id: 6be14013-3af3-45d5-a1a1-76d1a74ceb36
+    alias: ' Allarme - Frigate Armed Night'
+    trigger: 
+      - platform: state
+        entity_id: alarm_control_panel.allarme
+        to: 'armed_night'
+    action:
+      - service: switch.turn_on
+        entity_id: switch.scale_detect, switch.ingresso_detect
+      - service: switch.turn_off
+        entity_id: switch.sala_detect
+  # ------------------------------------------------------------
+  # Rilevamento Disattivo
+  - id: 15fb30ff-29dc-485e-bbb7-bfc3eeb68537
+    alias: ' Allarme - Frigate Disarmed'
+    trigger: 
+      - platform: state
+        entity_id: alarm_control_panel.allarme
+        to: 'disarmed'
+    action:
+      - service: switch.turn_off
+        entity_id: switch.sala_detect, switch.scale_detect, switch.ingresso_detect
+      
+group:
+  sensori_movimento:
+    name: Sensori Movimento
+    icon: mdi:run
+    entities:
+      - binary_sensor.ingresso_person_motion
+      - binary_sensor.scale_person_motion
+      - binary_sensor.pir_1_occupancy
+      - binary_sensor.pir_2_occupancy
