@@ -1,0 +1,199 @@
+# CONTROLLI PC
+  type: 'custom:layout-card' 
+  layout_type: grid
+  layout: 
+    grid-template-columns: 10% auto 10%
+    grid-template-rows: auto
+    grid-template-areas: |
+      ". pc ."
+  cards:
+    - type: vertical-stack
+      view_layout:
+          grid-area: pc
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - height: 200px
+        - type: horizontal-stack
+          cards:
+            - type: 'custom:button-card'
+              entity: input_select.pcoptions
+              name: Accendi
+              icon: mdi:power
+              show_icon: true
+              show_state: false
+              show_name: false
+              show_label: true
+              size: 20px
+              color: var(--google-grey-500)
+              tap_action:
+                action: call-service
+                service: input_select.select_option
+                service_data:
+                  entity_id: input_select.pcoptions
+                  option: Accendi
+              label: |-
+                [[[ if (entity.state =='Accendi')
+                    var state = "Accendo..."; 
+                    else
+                  var state = "Accendi";
+                return state ; ]]]
+              styles:
+                card:
+                  - border-radius: 20px
+                  - box-shadow: var(--box-shadow)
+                  - padding: 10px 0px 8px 0px 
+                grid:
+                  - grid-template-areas: '"i i i" "n n n" "l l l"'
+                name:
+                  - margin-top: 10px
+                  - place-self: center
+                  - margin-left: 0px
+                  - font-weight: bold
+                  - font-size: 14px
+                label:
+                  - justify-self: center
+                  - align-self: start
+                  - margin-left: 0px
+                  - font-weight: bolder
+                  - font-size: 12px
+                  - filter: opacity(40%)
+                icon:
+                  - width: 34px
+                  - place-self: center
+                  - color: 'rgba(var(--color-theme),0.2)'
+                img_cell:
+                  - background-color: 'rgba(var(--color-theme),0.05)'
+                  - border-radius: 50%
+                  - place-self: center
+                  - width: 42px
+                  - height: 42px
+              state:
+                - styles:
+                    icon:
+                      - color: 'rgba(var(--color-blue),1)'
+                    img_cell:
+                      - background-color: 'rgba(var(--color-blue), 0.2)'
+                  value: 'Accendi'
+            - type: 'custom:button-card'
+              entity: input_select.pcoptions
+              name: Riavvia
+              icon: mdi:reload
+              show_icon: true
+              show_state: false
+              show_name: false
+              show_label: true
+              size: 20px
+              color: var(--google-grey-500)
+              tap_action:
+                action: call-service
+                service: input_select.select_option
+                service_data:
+                  entity_id: input_select.pcoptions
+                  option: Riavvia
+              label: |-
+                [[[ if (entity.state =='Riavvia')
+                    var state = "Riavvio..."; 
+                    else
+                  var state = "Riavvia";
+                return state ; ]]]
+              styles:
+                card:
+                  - border-radius: 20px
+                  - box-shadow: var(--box-shadow)
+                  - padding: 10px 0px 8px 0px 
+                grid:
+                  - grid-template-areas: '"i i i" "n n n" "l l l"'
+                name:
+                  - margin-top: 10px
+                  - place-self: center
+                  - margin-left: 0px
+                  - font-weight: bold
+                  - font-size: 14px
+                label:
+                  - justify-self: center
+                  - align-self: start
+                  - margin-left: 0px
+                  - font-weight: bolder
+                  - font-size: 12px
+                  - filter: opacity(40%)
+                icon:
+                  - width: 34px
+                  - place-self: center
+                  - color: 'rgba(var(--color-theme),0.2)'
+                img_cell:
+                  - background-color: 'rgba(var(--color-theme),0.05)'
+                  - border-radius: 50%
+                  - place-self: center
+                  - width: 42px
+                  - height: 42px
+              state:
+                - styles:
+                    icon:
+                      - color: 'rgba(var(--color-blue),1)'
+                    img_cell:
+                      - background-color: 'rgba(var(--color-blue), 0.2)'
+                  value: 'Riavvia'            
+        - type: horizontal-stack
+          cards:
+            - type: 'custom:button-card'
+              entity: input_select.pcoptions
+              name: Spegni
+              icon: mdi:power-off
+              show_icon: true
+              show_state: false
+              show_name: false
+              show_label: true
+              size: 20px
+              color: var(--google-grey-500)
+              tap_action:
+                action: call-service
+                service: input_select.select_option
+                service_data:
+                  entity_id: input_select.pcoptions
+                  option: Spegni
+              label: |-
+                [[[ if (entity.state =='Spegni')
+                    var state = "Spengo..."; 
+                    else
+                  var state = "Spegni";
+                return state ; ]]]
+              styles:
+                card:
+                  - border-radius: 20px
+                  - box-shadow: var(--box-shadow)
+                  - padding: 10px 0px 8px 0px 
+                grid:
+                  - grid-template-areas: '"i i i" "n n n" "l l l"'
+                name:
+                  - margin-top: 10px
+                  - place-self: center
+                  - margin-left: 0px
+                  - font-weight: bold
+                  - font-size: 14px
+                label:
+                  - justify-self: center
+                  - align-self: start
+                  - margin-left: 0px
+                  - font-weight: bolder
+                  - font-size: 12px
+                  - filter: opacity(40%)
+                icon:
+                  - width: 34px
+                  - place-self: center
+                  - color: 'rgba(var(--color-theme),0.2)'
+                img_cell:
+                  - background-color: 'rgba(var(--color-theme),0.05)'
+                  - border-radius: 50%
+                  - place-self: center
+                  - width: 42px
+                  - height: 42px
+              state:
+                - styles:
+                    icon:
+                      - color: 'rgba(var(--color-blue),1)'
+                    img_cell:
+                      - background-color: 'rgba(var(--color-blue), 0.2)'
+                  value: 'Spegni'
