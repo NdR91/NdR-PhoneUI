@@ -165,6 +165,73 @@ views:
 Il file `button-card-templates.yaml` funziona in modo molto simile ai popup di browser-mod. 
 In sostanza esso contiene una serie di "frazioni di button card standard", che possono essere richiamate dalle "viste" 
 
+Anche questo caso, l'utilizzo del file `button-card-templates.yaml` non è obbligatorio: serve solo per mantenere ordinati i file della Dashboard.
+
+Il suo funzionamento è semplice, se avete già compreso i concetti esposti nel paragrafo precedente: creando una card `'custom:button-card'`, si può utilizzare la variabile `template` per richiamare delle porzioni di codice presenti nel file `button-card-templates.yaml`.
+
+Esempio pratico:
+
+Nella vista `01_home.yaml` troviamo, fra le altre, la seguente card:
+
+```yaml
+  - type: 'custom:button-card'
+    template: chips_temperature
+```
+Questo significa che, nel file `button-card-templates.yaml`, dovrà essere presente una porzione relativa a `chips_temperature`:
+
+```yaml
+  chips_temperature:
+    template: chips
+    tap_action:
+      action: none
+      haptic: light
+    label: |
+      [[[
+        var inter = states['sensor.daikin_sala_inside_temperature'].state;
+        var exter = states['sensor.openweathermap_temperature'].state;
+        var icon = '☀️';
+        if (states['sensor.openweathermap_weather'].state == 'clear-day'){
+          var icon = '☀️';
+        ...
+        } else if(states['sensor.openweathermap_weather'].state == 'partly-cloudy-night'){
+          var icon = '⛅';
+        }
+        return icon + ' ' + inter + '° / ' +  exter + '°' ;
+      ]]]
+```
+> Nota: la voce "label" è stata appositamente abbreviata per praticità
+
+Come si può notare, anche il template `chips_temperature` richiama a sua volta un altro template `chips`:
+
+```yaml
+  chips:
+    tap_action:
+      action: more-info
+      haptic: light
+    show_icon: false
+    show_name: false
+    show_state: false
+    show_label: true
+    size: 80%
+    styles:
+      img_cell:
+        - width: 24px
+      card:
+        - border-radius: 30px
+        - box-shadow: var(--box-shadow)
+        - height: 36px
+        - width: auto
+        - padding-left: 6px
+        - padding-right: 6px
+      grid:
+        - grid-template-areas: '"l"'
+      label:
+        - justify-self: center
+        - padding: 0px 6px
+        - font-weight: bold
+        - font-size: 14px 
+```
+
 > README in aggiornamento...
 
 # Esempi
