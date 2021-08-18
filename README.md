@@ -276,7 +276,7 @@ Il tutto, equivale alla card seguente:
 ```
 
 Una cosa, molto importante, da notare, è che alcune voci possono ripetersi nei vari template. In questo caso la variabile `tap_action` è presente sia nel template `chips_temperature` che in `cheaps`.
-Il risultato sarò che il primo template, per ordine di inserimento, prevarrà sui successivi.
+Il risultato sarà che il primo template, per ordine di inserimento, prevarrà sui successivi.
 
 > README in aggiornamento...
 
