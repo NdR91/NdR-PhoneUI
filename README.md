@@ -231,6 +231,52 @@ Come si può notare, anche il template `chips_temperature` richiama a sua volta 
         - font-weight: bold
         - font-size: 14px 
 ```
+Il tutto, equivale alla card seguente:
+
+```yaml
+  - type: 'custom:button-card'
+    tap_action:
+      action: none
+      haptic: light
+    label: |
+      [[[
+        var inter = states['sensor.daikin_sala_inside_temperature'].state;
+        var exter = states['sensor.openweathermap_temperature'].state;
+        var icon = '☀️';
+        if (states['sensor.openweathermap_weather'].state == 'clear-day'){
+          var icon = '☀️';
+        ...
+        } else if(states['sensor.openweathermap_weather'].state == 'partly-cloudy-night'){
+          var icon = '⛅';
+        }
+        return icon + ' ' + inter + '° / ' +  exter + '°' ;
+      ]]]  
+    show_icon: false
+    show_name: false
+    show_state: false
+    show_label: true
+    size: 80%
+    styles:
+      img_cell:
+        - width: 24px
+      card:
+        - border-radius: 30px
+        - box-shadow: var(--box-shadow)
+        - height: 36px
+        - width: auto
+        - padding-left: 6px
+        - padding-right: 6px
+      grid:
+        - grid-template-areas: '"l"'
+      label:
+        - justify-self: center
+        - padding: 0px 6px
+        - font-weight: bold
+        - font-size: 14px 
+```
+
+Una cosa, molto importante, da notare, è che alcune voci possono ripetersi nei vari template. In questo caso la variabile `tap_action` è presente sia nel template `chips_temperature` che in `cheaps`.
+Il risultato sarò che il primo template, per ordine di inserimento, prevarrà sui successivi.
 
 > README in aggiornamento...
 
