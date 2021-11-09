@@ -54,7 +54,7 @@
           - type: horizontal-stack 
             cards:
               - type: 'custom:button-card'
-                entity: sensor.assorbimento_totale_kw
+                entity: sensor.shelly_em_ch1_assorbimento
                 template: 
                   - icon_info_bg
                   - power               
@@ -77,7 +77,29 @@
                   haptic: light
                   service: switch.turn_on
                   service_data:
-                    entity_id: switch.pc_studio  
+                    entity_id: switch.pc_studio
+                hold_action:
+                  action: fire-dom-event
+                  haptic: success
+                  browser_mod:
+                    command: popup
+                    title: []
+                    large: false
+                    hide_header: false
+                    auto_close: false
+                    style:
+                      $: |
+                        .mdc-dialog {
+                          backdrop-filter: blur(17px);
+                          -webkit-backdrop-filter: blur(17px);
+                          background: rgba(0,0,0,0.25);
+                        }
+                        .mdc-dialog .mdc-dialog__container .mdc-dialog__surface {
+                          background: none !important;
+                          box-shadow: none;
+                          border-radius: 0px;
+                        }
+                    card: !include /config/lovelace/NdR-PhoneUI/popup/pc.yaml
                 # ------------------------------------              
               - entity: sensor.cancello
                 template: 

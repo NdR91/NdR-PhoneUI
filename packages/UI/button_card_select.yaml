@@ -1,0 +1,69 @@
+
+# Input Select per stato Button Card
+input_select:
+  # Cancello
+  cancello_button_card:
+    name: Button Card - Cancello (Input)
+    options:
+      - cancello_on
+      - cancello_off
+    initial: cancello_off
+    icon: mdi:gesture-tap-button
+    # ------------------------------------------------------------
+  # Scena Sera
+  sera_button_card:
+    name: Button Card - Sera (Input)
+    options:
+      - sera_on
+      - sera_off
+    initial: sera_off
+    icon: mdi:weather-night
+    # ------------------------------------------------------------
+
+sensor:
+  - platform: template
+    sensors:
+      cancello:
+        friendly_name: "Cancello"
+        value_template:  '{% if is_state("input_select.cancello_button_card", "cancello_off") %} Chiuso {% else %} Aperto {%- endif %}'
+
+# Automazione che cambia selezione dell'Input Select
+automation:
+  # Cancello
+  - id: d73da442-7351-490f-b2c1-0f448e23c7f9
+    alias: Button Card - Cancello (Automazione)
+    trigger: 
+      platform: state
+      entity_id: switch.cancello
+      to: 'on'
+    condition: []
+    action:
+      - service: input_select.set_options
+        data:
+          entity_id: input_select.cancello_button_card
+          options: cancello_on
+      - delay: '00:01:00'
+      - service: input_select.set_options
+        data:
+          entity_id: input_select.cancello_button_card
+          options: cancello_off
+  # ------------------------------------------------------------
+  # Sera
+  - id: 751360f9-13a1-41c3-afad-1b5ca58e3791
+    alias: Button Card - Sera (Automazione)
+    trigger: 
+      platform: state
+      entity_id: script.casa_spegnimento_sera
+      to: 'on'
+    condition: []
+    action:
+      - service: input_select.set_options
+        data:
+          entity_id: input_select.sera_button_card
+          options: sera_on
+      - delay: '00:01:00'
+      - service: input_select.set_options
+        data:
+          entity_id: input_select.sera_button_card
+          options: sera_off
+  # ------------------------------------------------------------
