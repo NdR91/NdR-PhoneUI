@@ -20,14 +20,21 @@ Credits:
 
 # Indice
 
+- [NDR PHoneUI](#ndr-phoneui)
+  - [README NON COMPLETO](#readme-non-completo)
+      - [Screenshots](#screenshots)
+      - [Se ti piace il mio lavoro...](#se-ti-piace-il-mio-lavoro)
+- [Indice](#indice)
 - [Preparazione](#preparazione)
-  - [File configuration.yaml](#file-configuration.yaml)
-  - [Card](#card)
+  - [File configuration.yaml](#file-configurationyaml)
+  - [Card ed Integrazioni](#card-ed-integrazioni)
   - [Split della configurazione](#split-della-configurazione)
-  - [File button-card-template.yaml](#file-button-card-template.yaml)  
+  - [File button-card-templates.yaml](#file-button-card-templatesyaml)
 - [Esempi](#esempi)
   - [Localizzazione](#localizzazione)
-  - [Avviso entità non disponibile](#avviso-entità-non-disponibile)  
+  - [Icona Batteria](#icona-batteria)
+  - [Avviso entità non disponibile](#avviso-entità-non-disponibile)
+  - [Stato Entità](#stato-entità)
 
 # Preparazione
 
@@ -55,6 +62,14 @@ lovelace:
     # ----------------------------------------------------
 ```
 > *Nota: molto importante la parte **mode: storage**. Questo significa che potrete utilizzare sia Dashboard create da Frontend che in modalità yaml*
+
+Includi nella directory, che più preferisci, `themes.yaml` e aggiungi il codice seguente al `configuration.yaml`
+
+```yaml
+frontend:
+  themes: !include themes.yaml
+```
+Inserisci nella cartella `themes` la cartella `mobile` che contiene i due file componenti per avere il tema sia scuro che chiaro.
 
 ## Card ed Integrazioni
 
